@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,8 +11,20 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataProvider {
 
+  headers = new Headers({ 'X-Mashape-Key': 'raVxYC8xpgmshlLakVNKqtPk8hpWp1fIJjdjsnnRutygWDHIt8' });
+  options = new RequestOptions({ headers: this.headers });
+  limit: number = 50;
+
   constructor(public http: Http) {
     console.log('Hello DataProvider Provider');
+  }
+
+  getGames(genre, offset_num){
+    let genre_id = genre;
+    let offset = offset_num;
+
+    return this.http.get('https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name,release_dates,screenshots&limit='+this.limit+'&offset='+offset+'&order=release_dates.date:desc&filter[genres][eq]='+genre_id+'&filter[screenshots][exists]', this.options)
+    .map(response => response.json());
   }
 
 }
