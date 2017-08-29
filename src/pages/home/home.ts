@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+
 
 /**
  * Generated class for the HomePage page.
@@ -15,7 +17,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  games = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _data: DataProvider) {
+
+    this._data.getGames('5', 0)
+     .subscribe(res => this.games = res);
+
   }
 
   ionViewDidLoad() {
