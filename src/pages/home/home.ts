@@ -18,7 +18,7 @@ export class HomePage {
 
   games = [];
   genre: any;
-  genreName: string = "Upcoming";
+  genreName: string = "Upcoming Games";
   favorites = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _data: DataProvider, private storage: Storage, public loading: LoadingController) {
